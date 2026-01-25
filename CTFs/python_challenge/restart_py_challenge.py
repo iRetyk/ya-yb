@@ -1,23 +1,20 @@
 ### Run #2 of the python challenge from beginning
-# Level 13 - "http://www.pythonchallenge.com/pc/return/disproportional.html"
+# Level 14 - "http://www.pythonchallenge.com/pc/return/italy.html"
 
-from PIL import Image
-import io
+from xmlrpc.client import ServerProxy, Transport
+import http.client
 
+class NoGzipTransport(Transport):
+    def send_headers(self, connection, headers):
+        # Remove Accept-Encoding entirely
+        headers = [(k, v) for (k, v) in headers if k.lower() != "accept-encoding"]
+        super().send_headers(connection, headers)
 
-with open('evil2.gfx','rb') as f:
-    raw = f.read()
+transport = NoGzipTransport()
 
-files = [b'' for _ in range(5)]
+server = ServerProxy(
+    "http://www.pythonchallenge.com/pc/phonebook.php",
+    transport=transport
+)
 
-for i, byte in enumerate(raw):
-    files[i % 5] += bytes([byte])
-
-
-for file in files:
-    try:
-        im = Image.open(io.BytesIO(file))
-        im.load()
-        im.save(f"evil2_result{files.index(file)}.png")
-    except Exception as e:
-        print(e)
+print(server.phone("Bert"))
