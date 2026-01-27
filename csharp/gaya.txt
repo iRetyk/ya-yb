@@ -1,0 +1,19 @@
+public static bool IfZigzag<T>(Node<T> head)
+{
+    if (head.HasRight() && head.HasLeft()) return False; //If Two sons, not zigzag
+    if (!head.HasRight() && !head.HasLeft()) return True; //If no sons, tree has only root, and is zigzag
+
+    if (head.GetRight() != null) return IfZigzagR(head,True);
+    if (head.GetLeft() != null) return IfZigzagR(head,False);
+}
+
+public static bool IfZigzagR<T>(Node<T> head,bool right)
+{
+    if (head.HasRight() && head.HasLeft()) return False; //If Two sons, not zigzag
+    if (!head.HasRight() && !head.HasLeft()) return True; //End of Tree. If recursion got to the end of the tree, the tree is zigzag
+
+    if (right && head.HasLeft()) return IfZigzagR(head.GetLeft(), False);
+    if (!right && head.HasRight()) return IfZigzagR(head.GetRight(), True);
+
+}
+
