@@ -49,6 +49,7 @@ HTML_TEMPLATE = """
 <!doctype html>
 <title>Poker Cashout Calculator</title>
 <h1>Poker Cashout Calculator</h1>
+<h2>Enter player names and balances to see who should pay who:</h2>
 
 <form method="POST" id="playerForm">
     Number of players: <input type="number" id="playerCount" name="count" min="2" value="{{ count }}"><br><br>
