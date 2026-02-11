@@ -2,6 +2,12 @@
 Calculate who should pay who when caching out a poker game
 """
 
+
+from flask import Flask, request, jsonify
+
+app = Flask(__name__)
+
+@app.route("/")
 def main():
     count = int(input("How many players? "))
     players: list[tuple[str, int]] = []
@@ -47,4 +53,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    app.run(debug=True)
